@@ -33,10 +33,12 @@ public class Connect4Board {
         }
     }
 
-    private boolean isWinner() {
-        boolean isWinner = false;
-
-        return isWinner;
+    private boolean isWinner(String player) {
+        if(isHorizotalWin(player) | isVerticleWin(player)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -52,8 +54,8 @@ public class Connect4Board {
                         return true;
                     }
                 }
-                //if space is occupied by other player's game piece reset counter
-                else if (this.board[y][x] != null) {
+                //if space is occupied by other player's game piece or is empty reset counter
+                else {
                     count = 0;
                 }
             }
@@ -62,6 +64,27 @@ public class Connect4Board {
     }
 
     private boolean isHorizotalWin(String player) {
+        int count = 0;
+
+        for(int x = columns - 1; x >= 0; x--) {
+            for (int y = 0; y < rows; y++) {
+                if (this.board[x][y] != null && this.board[x][y].equals(player)) {
+                    count++;
+                    if (count == 3) { //3 of given kind found, return player winner
+                        return true;
+                    }
+                }
+                //if space is occupied by other player's game piece or is empty reset counter
+                else {
+                    count = 0;
+                }
+            }
+        }
+        return false;
+    }
+
+    //TODO: create method for checking diagonal win
+    private boolean isDiagonalWin(String player) {
         return true;
     }
 
@@ -89,17 +112,21 @@ public class Connect4Board {
 
     public static void main (String[] args) {
         Connect4Board newGame = new Connect4Board();
+
         String[][] existingBoard = new String[][] {
-                {null, null, null, "X", null},
-                {null, null, null, "X", null},
-                {null, null, null, "X", null},
-                {null, "O", "O", "O", null}
+                {null, null, null, null, null},
+                {null, null, null, "O", null},
+                {null, null, "O", "X", null},
+                {null, "O", "O", "X", "X"}
     };
 
         newGame.setBoard(existingBoard);
         newGame.printBoard();
-        boolean xWinsVertically = newGame.isVerticleWin("X");
-        System.out.println(xWinsVertically);
+        boolean isXWinner = newGame.isWinner("X");
+        boolean isOWinner = newGame.isWinner("O");
+        System.out.println();
+        System.out.println("X Winner: " + isXWinner);
+        System.out.println("Y Winner: " + isOWinner);
         //newGame.dropCoin("X", 0);
     }
 }
