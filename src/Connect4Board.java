@@ -33,6 +33,38 @@ public class Connect4Board {
         }
     }
 
+    private boolean isWinner() {
+        boolean isWinner = false;
+
+        return isWinner;
+    }
+
+
+    private boolean isVerticleWin(String player) {
+        //String Player - Player Piece (X or O)
+        int count = 0;
+        for(int x = 0; x < rows - 1; x++) {
+            for (int y = columns - 1; y >= 0; y--) {
+                //if space is occupied by current player's game piece, increment counter
+                if (this.board[y][x] != null && this.board[y][x].equals(player)) {
+                    count++;
+                    if (count == 3) { //3 of given kind found, return player winner
+                        return true;
+                    }
+                }
+                //if space is occupied by other player's game piece reset counter
+                else if (this.board[y][x] != null) {
+                    count = 0;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean isHorizotalWin(String player) {
+        return true;
+    }
+
     //Board move
     public void dropCoin(String player, int column) {
         Connect4Board childBoard = new Connect4Board();
@@ -57,6 +89,17 @@ public class Connect4Board {
 
     public static void main (String[] args) {
         Connect4Board newGame = new Connect4Board();
-        newGame.dropCoin("X", 0);
+        String[][] existingBoard = new String[][] {
+                {null, null, null, "X", null},
+                {null, null, null, "X", null},
+                {null, null, null, "X", null},
+                {null, "O", "O", "O", null}
+    };
+
+        newGame.setBoard(existingBoard);
+        newGame.printBoard();
+        boolean xWinsVertically = newGame.isVerticleWin("X");
+        System.out.println(xWinsVertically);
+        //newGame.dropCoin("X", 0);
     }
 }
