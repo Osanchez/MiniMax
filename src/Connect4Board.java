@@ -33,8 +33,8 @@ public class Connect4Board {
         }
     }
 
-    private boolean isWinner(String player) {
-        if(isHorizotalWin(player) | isVerticleWin(player)) {
+    private boolean isWinner() {
+        if(isHorizotalWin()| isVerticleWin()) {
             return true;
         } else {
             return false;
@@ -42,48 +42,71 @@ public class Connect4Board {
     }
 
 
-    private boolean isVerticleWin(String player) {
-        //String Player - Player Piece (X or O)
-        int count = 0;
+    private boolean isVerticleWin() {
+        int Xcount = 0;
+        int Ocount = 0;
+
         for(int x = 0; x < rows - 1; x++) {
             for (int y = columns - 1; y >= 0; y--) {
                 //if space is occupied by current player's game piece, increment counter
-                if (this.board[y][x] != null && this.board[y][x].equals(player)) {
-                    count++;
-                    if (count == 3) { //3 of given kind found, return player winner
-                        return true;
-                    }
+                if (this.board[y][x] != null && this.board[y][x].equals("X")) {
+                    Xcount++;
+                    Ocount = 0;
                 }
-                //if space is occupied by other player's game piece or is empty reset counter
-                else {
-                    count = 0;
+                if (this.board[y][x] != null && this.board[y][x].equals("O")) {
+                    Ocount++;
+                    Xcount = 0;
+                }
+                if(this.board[y][x] == null) {
+                    Xcount = 0;
+                    Ocount = 0;
+                }
+                if (Xcount == 3) { //3 of given kind found, return player winner
+                    System.out.println("Player X Wins Vertically!");
+                    return true;
+                }
+                else if (Ocount == 3) { //3 of given kind found, return player winner
+                    System.out.println("Player O Wins Vertically!");
+                    return true;
                 }
             }
         }
         return false;
     }
 
-    private boolean isHorizotalWin(String player) {
-        int count = 0;
+    private boolean isHorizotalWin() {
+        int Xcount = 0;
+        int Ocount = 0;
 
         for(int x = columns - 1; x >= 0; x--) {
             for (int y = 0; y < rows; y++) {
-                if (this.board[x][y] != null && this.board[x][y].equals(player)) {
-                    count++;
-                    if (count == 3) { //3 of given kind found, return player winner
-                        return true;
-                    }
+                //if space is occupied by current player's game piece, increment counter
+                if (this.board[x][y] != null && this.board[x][y].equals("X")) {
+                    Xcount++;
+                    Ocount = 0;
                 }
-                //if space is occupied by other player's game piece or is empty reset counter
-                else {
-                    count = 0;
+                if (this.board[x][y] != null && this.board[x][y].equals("O")) {
+                    Ocount++;
+                    Xcount = 0;
+                }
+                if(this.board[x][y] == null) {
+                    Xcount = 0;
+                    Ocount = 0;
+                }
+                if (Xcount == 3) { //3 of given kind found, return player winner
+                    System.out.println("Player X Wins Horizontally!");
+                    return true;
+                }
+                else if (Ocount == 3) { //3 of given kind found, return player winner
+                    System.out.println("Player O Wins Horizontally!");
+                    return true;
                 }
             }
         }
         return false;
     }
 
-    //TODO: create method for checking diagonal win
+    //TODO: create method for checking diagonal wins!
     private boolean isDiagonalWin(String player) {
         return true;
     }
@@ -122,11 +145,8 @@ public class Connect4Board {
 
         newGame.setBoard(existingBoard);
         newGame.printBoard();
-        boolean isXWinner = newGame.isWinner("X");
-        boolean isOWinner = newGame.isWinner("O");
-        System.out.println();
-        System.out.println("X Winner: " + isXWinner);
-        System.out.println("Y Winner: " + isOWinner);
+        boolean isWinner = newGame.isWinner();
+        System.out.println("is Winner: " + isWinner);
         //newGame.dropCoin("X", 0);
     }
 }
