@@ -23,10 +23,10 @@ public class Connect4Board {
     private void printBoard() {
         for (int x = 0; x < rows; x++) {
             for (int y = 0; y < columns; y++) {
-                if (this.board[x][y] != null) {
+                if (!this.board[x][y].equals(".")) {
                     System.out.print("[" + this.board[x][y] + "]");
                 } else {
-                    System.out.print("[ ]");
+                    System.out.print("[.]");
                 }
             }
             System.out.println(); //next row
@@ -45,15 +45,15 @@ public class Connect4Board {
         for (int x = 0; x < columns - 1; x++) {
             for (int y = rows - 1; y >= 0; y--) {
                 //if space is occupied by current player's game piece, increment counter
-                if (this.board[y][x] != null && this.board[y][x].equals("X")) {
+                if (!this.board[y][x].equals(".") && this.board[y][x].equals("X")) {
                     Xcount++;
                     Ocount = 0;
                 }
-                if (this.board[y][x] != null && this.board[y][x].equals("O")) {
+                if (!this.board[y][x].equals(".") && this.board[y][x].equals("O")) {
                     Ocount++;
                     Xcount = 0;
                 }
-                if (this.board[y][x] == null) {
+                if (this.board[y][x].equals(".")) {
                     Xcount = 0;
                     Ocount = 0;
                 }
@@ -76,15 +76,15 @@ public class Connect4Board {
         for (int x = rows - 1; x >= 0; x--) {
             for (int y = 0; y < columns - 1; y++) {
                 //if space is occupied by current player's game piece, increment counter
-                if (this.board[x][y] != null && this.board[x][y].equals("X")) {
+                if (!this.board[x][y].equals(".") && this.board[x][y].equals("X")) {
                     Xcount++;
                     Ocount = 0;
                 }
-                if (this.board[x][y] != null && this.board[x][y].equals("O")) {
+                if (!this.board[x][y].equals(".") && this.board[x][y].equals("O")) {
                     Ocount++;
                     Xcount = 0;
                 }
-                if (this.board[x][y] == null) {
+                if (this.board[x][y].equals(".")) {
                     Xcount = 0;
                     Ocount = 0;
                 }
@@ -112,15 +112,15 @@ public class Connect4Board {
         for (int i = 2; i < 4; i++) { //this checks all 3 diagonal squares even though after one missing piece its impossible to win
             for (int k = 0; k < 3; k++) {
                 //System.out.println(i + " - " + k + ", " + jSides + " + " + k + " = " + (i - k) + ", " + (jSides + k));
-                if (this.board[i - k][jSides + k] != null && this.board[i - k][jSides + k].equals("X")) {
+                if (!this.board[i - k][jSides + k].equals(".") && this.board[i - k][jSides + k].equals("X")) {
                     countX++;
                     countO = 0;
                 }
-                if (this.board[i - k][jSides + k] != null && this.board[i - k][jSides + k].equals("O")) {
+                if (!this.board[i - k][jSides + k].equals(".") && this.board[i - k][jSides + k].equals("O")) {
                     countO++;
                     countX = 0;
                 }
-                if (this.board[i - k][jSides + k] == null) {
+                if (this.board[i - k][jSides + k].equals(".")) {
                     countX = 0;
                     countO = 0;
                 }
@@ -141,15 +141,15 @@ public class Connect4Board {
         for (int i = 0; i <= 1; i++) {
             for (int k = 0; k < 4; k++) {
                 //System.out.println(3 + " - " + k + ", " + i + " + " + k + " = " + (3 - k) + ", " + (i+k));
-                if (this.board[3 - k][i + k] != null && this.board[3 - k][i + k].equals("X")) {
+                if (!this.board[3 - k][i + k].equals(".") && this.board[3 - k][i + k].equals("X")) {
                     countX++;
                     countO = 0;
                 }
-                if (this.board[3 - k][i + k] != null && this.board[3 - k][i + k].equals("O")) {
+                if (!this.board[3 - k][i + k].equals(".") && this.board[3 - k][i + k].equals("O")) {
                     countO++;
                     countX = 0;
                 }
-                if (this.board[3 - k][i + k] == null) {
+                if (this.board[3 - k][i + k].equals(".")) {
                     countX = 0;
                     countO = 0;
                 }
@@ -169,15 +169,15 @@ public class Connect4Board {
         for (int i = 3; i > 1; i--) { //this checks all 3 diagonal squares even though after one missing piece its impossible to win
             for (int k = 0; k < 3; k++) {
                 //System.out.println(i + " - " + k + ", " + jSides + " + " + k + " = " + (i - k) + ", " + (jSides - k));
-                if (this.board[i - k][jSides - k] != null && this.board[i - k][jSides - k].equals("X")) {
+                if (!this.board[i - k][jSides - k].equals(".") && this.board[i - k][jSides - k].equals("X")) {
                     countX++;
                     countO = 0;
                 }
-                if (this.board[i - k][jSides - k] != null && this.board[i - k][jSides - k].equals("O")) {
+                if (!this.board[i - k][jSides - k].equals(".") && this.board[i - k][jSides - k].equals("O")) {
                     countO++;
                     countX = 0;
                 }
-                if (this.board[i - k][jSides - k] == null) {
+                if (this.board[i - k][jSides - k].equals(".")) {
                     countX = 0;
                     countO = 0;
                 }
@@ -197,15 +197,15 @@ public class Connect4Board {
         for (int i = 4; i > 2; i--) {
                 for (int k = 0; k < 4; k++) {
                     //System.out.println(jSides + " - " + k + ", " + i + " - " + k + " = " + (jSides - k) + ", " + (i - k));
-                    if (this.board[jSides - k][i - k] != null && this.board[jSides - k][i - k].equals("X")) {
+                    if (!this.board[jSides - k][i - k].equals(".") && this.board[jSides - k][i - k].equals("X")) {
                         countX++;
                         countO = 0;
                     }
-                    if (this.board[jSides - k][i - k] != null && this.board[jSides - k][i - k].equals("O")) {
+                    if (!this.board[jSides - k][i - k].equals(".") && this.board[jSides - k][i - k].equals("O")) {
                         countO++;
                         countX = 0;
                     }
-                    if (this.board[jSides - k][i - k] == null) {
+                    if (this.board[jSides - k][i - k].equals(".")) {
                         countX = 0;
                         countO = 0;
                     }
@@ -228,7 +228,7 @@ public class Connect4Board {
 
         //make board move
         for (int y = columns - 1; y >= 0; y--) {
-            if (boardCopy[y][column] == null) {
+            if (boardCopy[y][column].equals(".")) {
                 boardCopy[y][column] = player;
 
                 //add new board to children
@@ -247,18 +247,22 @@ public class Connect4Board {
 
     public static void main(String[] args) {
         Connect4Board newGame = new Connect4Board();
+        IOHandler reader = new IOHandler();
+        reader.readFile("Files/board.txt");
+        String[][] readBoard = reader.boardState;
 
-        String[][] existingBoard = new String[][]{
+        /*String[][] existingBoard = new String[][]{
                 {null, null, "O", null, null},
                 {"O", null, null, "O", null},
                 {null, "O", null, null, "O"},
                 {null, null, "O", null, null}
         };
+    */
 
-        newGame.setBoard(existingBoard);
+        newGame.setBoard(readBoard);
         newGame.printBoard();
-        boolean isWinner = newGame.isWinner();
-        System.out.println("is Winner: " + isWinner);
+        newGame.isWinner();
+        //System.out.println("is Winner: " + isWinner);
         //newGame.dropCoin("X", 0);
     }
 }
