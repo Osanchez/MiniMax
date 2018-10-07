@@ -7,5 +7,5 @@
 - Tree Graph for Connect-3 game
 
 #### Completed
-Connect-3 game
+ - Connect-3 game
 
