@@ -7,6 +7,9 @@ public class Connect4Board {
     private Connect4Board parentBoard = null;
     public ArrayList<Connect4Board> children = new ArrayList<>();
     public String playerTurn;
+    public boolean isTerminal;
+    public int min;
+    public int max;
 
     public Connect4Board() {
 
