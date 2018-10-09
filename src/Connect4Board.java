@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Connect4Board {
     private static int rows = 4;
@@ -6,7 +7,7 @@ public class Connect4Board {
     private String[][] board = new String[columns][rows];
 
     private Connect4Board parentBoard = null;
-    public ArrayList<Connect4Board> children = new ArrayList<>();
+    public HashMap<Integer, Connect4Board> children = new HashMap<>();
 
     public String playerTurn;
     public boolean isTerminal = false;
@@ -72,8 +73,8 @@ public class Connect4Board {
         }
     }
 
-    public void addChild(Connect4Board child) {
-        this.children.add(child);
+    public void addChild(int column, Connect4Board child) {
+        this.children.put(column, child);
     }
 
     public void copyBoard(String[][] original, String[][] copy) {
@@ -363,10 +364,9 @@ public class Connect4Board {
         for (int x = 3; x >= 0; x--) {
             if (boardCopy[x][column].equals(".")) {
                 boardCopy[x][column] = player;
-
                 //add new board to children
                 childBoard.setBoard(boardCopy);
-                this.addChild(childBoard);
+                this.addChild(column, childBoard);
                 break;
             }
         }

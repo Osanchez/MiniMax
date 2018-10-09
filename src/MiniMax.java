@@ -1,42 +1,56 @@
-import javafx.util.Pair;
-
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 
 public class MiniMax {
 
     public void miniMaxDecision(Connect4Board state) {
-        ArrayList<Integer> possibleActions = new ArrayList<>();
+        ArrayList<Integer> miniMaxValues = new ArrayList<>();
+        ArrayList<Integer> columnValue = new ArrayList<>();
         state.expand();
 
-        for(Connect4Board action: state.children) {
-           possibleActions.add(minValue(action));
-       }
+        if(state.getCurrentPlayerTurn() == "X") {
+            for (Map.Entry action : state.children.entrySet()) {
+                columnValue.add((Integer) action.getKey());
+                miniMaxValues.add(minValue((Connect4Board) action.getValue()));
+            }
+        } else {
+            for (Map.Entry action : state.children.entrySet()) {
+                columnValue.add((Integer) action.getKey());
+                miniMaxValues.add(maxValue((Connect4Board) action.getValue()));
+            }
+        }
 
-       for(int i = 0; i < possibleActions.size(); i++) {
+        //System.out.println(miniMaxValues);
+        //System.out.println(columnValue);
+
+       for(int i = 0; i < miniMaxValues.size(); i++) {
            if(state.getCurrentPlayerTurn() == "X") {
-               if(possibleActions.get(i) == 1) {
-                   System.out.println(Integer.toString(possibleActions.get(i)) + "  X" + i);
+               if(miniMaxValues.get(i) == 1) {
+                   System.out.println(Integer.toString(miniMaxValues.get(i)) + "  X" + columnValue.get(i));
                    break;
                }
-               if(possibleActions.get(i) == 0) {
-                   System.out.println(Integer.toString(possibleActions.get(i)) + "  X" + i);
+               if(miniMaxValues.get(i) == 0) {
+                   System.out.println(Integer.toString(miniMaxValues.get(i)) + "  X" + columnValue.get(i));
                    break;
+               }
+               if(i == miniMaxValues.size() - 1) { //def lose
+                   System.out.println(Integer.toString(miniMaxValues.get(i)) + "  X" + columnValue.get(0));
                }
            } else {
-               if(possibleActions.get(i) == -1) {
-                   System.out.println(Integer.toString(possibleActions.get(i)) + "  O" + i);
+               if(miniMaxValues.get(i) == -1) {
+                   System.out.println(Integer.toString(miniMaxValues.get(i)) + "  O" + columnValue.get(i));
                    break;
                }
-               if(possibleActions.get(i) == 0) {
-                   System.out.println(Integer.toString(possibleActions.get(i)) + "  O" + i);
+               if(miniMaxValues.get(i) == 0) {
+                   System.out.println(Integer.toString(miniMaxValues.get(i)) + "  O" + columnValue.get(i));
                    break;
+               }
+               if(i == miniMaxValues.size() - 1) { //def lose
+                   System.out.println(Integer.toString(miniMaxValues.get(i)) + "  O" + columnValue.get(0));
                }
            }
+
        }
     }
 
@@ -49,7 +63,7 @@ public class MiniMax {
 
         state.expand();
 
-        for(Connect4Board a: state.children) {
+        for(Connect4Board a: state.children.values()) {
             v = Math.max(v, minValue(a));
         }
         return v;
@@ -64,7 +78,7 @@ public class MiniMax {
 
         state.expand();
 
-        for(Connect4Board a: state.children) {
+        for(Connect4Board a: state.children.values()) {
             v = Math.min(v, maxValue(a));
         }
         return v;
