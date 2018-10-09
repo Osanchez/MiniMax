@@ -29,8 +29,16 @@ public class Connect4Board {
         }
     }
 
+    public String getOppositePlayer(String player) {
+        if(player == "X") {
+            return "O";
+        } else {
+            return "X";
+        }
+    }
+
     //determines what player goes next
-    public void getCurrentPlayerTurn() {
+    public String getCurrentPlayerTurn() {
         int piecesX = 0;
         int piecesO = 0;
 
@@ -47,11 +55,14 @@ public class Connect4Board {
 
         if(piecesX < piecesO) {
             this.playerTurn =  "X";
+            return "X";
         }
         else if (piecesX == piecesO) {
             this.playerTurn = "X";
+            return "X";
         } else {
             this.playerTurn = "O";
+            return "O";
         }
     }
 
@@ -318,9 +329,8 @@ public class Connect4Board {
         countX = 0;
         countO = 0;
 
-        for(int x = 0; x < rows - 1; x++) {
-            for(int y = 0; y < columns - 1; y++) {
-
+        for(int x = 0; x <= rows - 1; x++) {
+            for(int y = 0; y <= columns - 1; y++) {
                 if(this.board[x][y].equals("X")) {
                     countX++;
                 }

@@ -1,10 +1,43 @@
+import javafx.util.Pair;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
+
 
 public class MiniMax {
 
-    public Connect4Board miniMaxDecision(Connect4Board state) {
-       return state;
+    public void miniMaxDecision(Connect4Board state) {
+        ArrayList<Integer> possibleActions = new ArrayList<>();
+        state.expand();
+
+        for(Connect4Board action: state.children) {
+           possibleActions.add(minValue(action));
+       }
+
+       for(int i = 0; i < possibleActions.size(); i++) {
+           if(state.getCurrentPlayerTurn() == "X") {
+               if(possibleActions.get(i) == 1) {
+                   System.out.println(Integer.toString(possibleActions.get(i)) + "  X" + i);
+                   break;
+               }
+               if(possibleActions.get(i) == 0) {
+                   System.out.println(Integer.toString(possibleActions.get(i)) + "  X" + i);
+                   break;
+               }
+           } else {
+               if(possibleActions.get(i) == -1) {
+                   System.out.println(Integer.toString(possibleActions.get(i)) + "  O" + i);
+                   break;
+               }
+               if(possibleActions.get(i) == 0) {
+                   System.out.println(Integer.toString(possibleActions.get(i)) + "  O" + i);
+                   break;
+               }
+           }
+       }
     }
 
     public int maxValue(Connect4Board state) {
@@ -47,7 +80,8 @@ public class MiniMax {
         initialBoard.getCurrentPlayerTurn();
 
         MiniMax miniMax = new MiniMax();
-
-        System.out.println(miniMax.minValue(initialBoard));
+        initialBoard.printBoard();
+        System.out.println();
+        miniMax.miniMaxDecision(initialBoard);
     }
 }

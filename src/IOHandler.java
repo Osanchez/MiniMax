@@ -33,10 +33,6 @@ public class IOHandler {
 
             br.close();
 
-            //for(int[] aBoard: finalizedBoards) {
-            //    System.out.println(Arrays.toString(aBoard));
-            //}
-
             System.out.println();
         } catch (IOException e) {
             e.printStackTrace();
