@@ -48,7 +48,6 @@ public class MiniMax {
 
         MiniMax miniMax = new MiniMax();
 
-        System.out.println(miniMax.maxValue(initialBoard));
         System.out.println(miniMax.minValue(initialBoard));
     }
 }
